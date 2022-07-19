@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crud.dao.ExperimentDataMapper">
+  <resultMap id="BaseResultMap" type="com.crud.bean.ExperimentData">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ExperimentNumber" jdbcType="INTEGER" property="experimentnumber" />
+    <result column="ExperimenterNumber" jdbcType="VARCHAR" property="experimenternumber" />
+    <result column="ExperimentPurpose" jdbcType="VARCHAR" property="experimentpurpose" />
+    <result column="ExperimentLocation" jdbcType="VARCHAR" property="experimentlocation" />
+    <result column="ExperimentApproach" jdbcType="VARCHAR" property="experimentapproach" />
+    <result column="ExperimentRecord" jdbcType="VARCHAR" property="experimentrecord" />
+    <result column="ExperimentResult" jdbcType="VARCHAR" property="experimentresult" />
+    <result column="ExperimentNote" jdbcType="VARCHAR" property="experimentnote" />
+    <result column="ExperimentDate" jdbcType="TIMESTAMP" property="experimentdate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, ExperimentNumber, ExperimenterNumber, ExperimentPurpose, ExperimentLocation, 
+    ExperimentApproach, ExperimentRecord, ExperimentResult, ExperimentNote, ExperimentDate
+  </sql>
+  <select id="selectByExample" parameterType="com.crud.bean.ExperimentDataExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from 2020rg_group9_experimentdata
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from 2020rg_group9_experimentdata
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from 2020rg_group9_experimentdata
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.crud.bean.ExperimentDataExample">
+    delete from 2020rg_group9_experimentdata
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.crud.bean.ExperimentData">
+    insert into 2020rg_group9_experimentdata (id, ExperimentNumber, ExperimenterNumber, 
+      ExperimentPurpose, ExperimentLocation, 
+      ExperimentApproach, ExperimentRecord, ExperimentResult, 
+      ExperimentNote, ExperimentDate)
+    values (#{id,jdbcType=INTEGER}, #{experimentnumber,jdbcType=INTEGER}, #{experimenternumber,jdbcType=VARCHAR}, 
+      #{experimentpurpose,jdbcType=VARCHAR}, #{experimentlocation,jdbcType=VARCHAR}, 
+      #{experimentapproach,jdbcType=VARCHAR}, #{experimentrecord,jdbcType=VARCHAR}, #{experimentresult,jdbcType=VARCHAR}, 
+      #{experimentnote,jdbcType=VARCHAR}, #{experimentdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.crud.bean.ExperimentData">
+    insert into 2020rg_group9_experimentdata
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="experimentnumber != null">
+        ExperimentNumber,
+      </if>
+      <if test="experimenternumber != null">
+        ExperimenterNumber,
+      </if>
+      <if test="experimentpurpose != null">
+        ExperimentPurpose,
+      </if>
+      <if test="experimentlocation != null">
+        ExperimentLocation,
+      </if>
+      <if test="experimentapproach != null">
+        ExperimentApproach,
+      </if>
+      <if test="experimentrecord != null">
+        ExperimentRecord,
+      </if>
+      <if test="experimentresult != null">
+        ExperimentResult,
+      </if>
+      <if test="experimentnote != null">
+        ExperimentNote,
+      </if>
+      <if test="experimentdate != null">
+        ExperimentDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="experimentnumber != null">
+        #{experimentnumber,jdbcType=INTEGER},
+      </if>
+      <if test="experimenternumber != null">
+        #{experimenternumber,jdbcType=VARCHAR},
+      </if>
+      <if test="experimentpurpose != null">
+        #{experimentpurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="experimentlocation != null">
+        #{experimentlocation,jdbcType=VARCHAR},
+      </if>
+      <if test="experimentapproach != null">
+        #{experimentapproach,jdbcType=VARCHAR},
+      </if>
+      <if test="experimentrecord != null">
+        #{experimentrecord,jdbcType=VARCHAR},
+      </if>
+      <if test="experimentresult != null">
+        #{experimentresult,jdbcType=VARCHAR},
+      </if>
+      <if test="experimentnote != null">
+        #{experimentnote,jdbcType=VARCHAR},
+      </if>
+      <if test="experimentdate != null">
+        #{experimentdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.crud.bean.ExperimentDataExample" resultType="java.lang.Long">
+    select count(*) from 2020rg_group9_experimentdata
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update 2020rg_group9_experimentdata
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.experimentnumber != null">
+        ExperimentNumber = #{record.experimentnumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.experimenternumber != null">
+        ExperimenterNumber = #{record.experimenternumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.experimentpurpose != null">
+        ExperimentPurpose = #{record.experimentpurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.experimentlocation != null">
+        ExperimentLocation = #{record.experimentlocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.experimentapproach != null">
+        ExperimentApproach = #{record.experimentapproach,jdbcType=VARCHAR},
+      </if>
+      <if test="record.experimentrecord != null">
+        ExperimentRecord = #{record.experimentrecord,jdbcType=VARCHAR},
+      </if>
+      <if test="record.experimentresult != null">
+        ExperimentResult = #{record.experimentresult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.experimentnote != null">
+        ExperimentNote = #{record.experimentnote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.experimentdate != null">
+        ExperimentDate = #{record.experimentdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update 2020rg_group9_experimentdata
+    set id = #{record.id,jdbcType=INTEGER},
+      ExperimentNumber = #{record.experimentnumber,jdbcType=INTEGER},
+      ExperimenterNumber = #{record.experimenternumber,jdbcType=VARCHAR},
+      ExperimentPurpose = #{record.experimentpurpose,jdbcType=VARCHAR},
+      ExperimentLocation = #{record.experimentlocation,jdbcType=VARCHAR},
+      ExperimentApproach = #{record.experimentapproach,jdbcType=VARCHAR},
+      ExperimentRecord = #{record.experimentrecord,jdbcType=VARCHAR},
+      ExperimentResult = #{record.experimentresult,jdbcType=VARCHAR},
+      ExperimentNote = #{record.experimentnote,jdbcType=VARCHAR},
+      ExperimentDate = #{record.experimentdate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.crud.bean.ExperimentData">
+    update 2020rg_group9_experimentdata
+    <set>
+      <if test="experimentnumber != null">
+        ExperimentNumber = #{experimentnumber,jdbcType=INTEGER},
+      </if>
+      <if test="experimenternumber != null">
+        ExperimenterNumber = #{experimenternumber,jdbcType=VARCHAR},
+      </if>
+      <if test="experimentpurpose != null">
+        ExperimentPurpose = #{experimentpurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="experimentlocation != null">
+        ExperimentLocation = #{experimentlocation,jdbcType=VARCHAR},
+      </if>
+      <if test="experimentapproach != null">
+        ExperimentApproach = #{experimentapproach,jdbcType=VARCHAR},
+      </if>
+      <if test="experimentrecord != null">
+        ExperimentRecord = #{experimentrecord,jdbcType=VARCHAR},
+      </if>
+      <if test="experimentresult != null">
+        ExperimentResult = #{experimentresult,jdbcType=VARCHAR},
+      </if>
+      <if test="experimentnote != null">
+        ExperimentNote = #{experimentnote,jdbcType=VARCHAR},
+      </if>
+      <if test="experimentdate != null">
+        ExperimentDate = #{experimentdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.crud.bean.ExperimentData">
+    update 2020rg_group9_experimentdata
+    set ExperimentNumber = #{experimentnumber,jdbcType=INTEGER},
+      ExperimenterNumber = #{experimenternumber,jdbcType=VARCHAR},
+      ExperimentPurpose = #{experimentpurpose,jdbcType=VARCHAR},
+      ExperimentLocation = #{experimentlocation,jdbcType=VARCHAR},
+      ExperimentApproach = #{experimentapproach,jdbcType=VARCHAR},
+      ExperimentRecord = #{experimentrecord,jdbcType=VARCHAR},
+      ExperimentResult = #{experimentresult,jdbcType=VARCHAR},
+      ExperimentNote = #{experimentnote,jdbcType=VARCHAR},
+      ExperimentDate = #{experimentdate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

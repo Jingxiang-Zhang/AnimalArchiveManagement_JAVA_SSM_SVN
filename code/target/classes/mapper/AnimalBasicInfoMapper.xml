@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crud.dao.AnimalBasicInfoMapper">
+  <resultMap id="BaseResultMap" type="com.crud.bean.AnimalBasicInfo">
+    <id column="BasicNumber" jdbcType="INTEGER" property="basicnumber" />
+    <result column="AnimalWeight" jdbcType="VARCHAR" property="animalweight" />
+    <result column="AnimalLengh" jdbcType="VARCHAR" property="animallengh" />
+    <result column="AnimalBloodType" jdbcType="VARCHAR" property="animalbloodtype" />
+    <result column="AnimalOrigin" jdbcType="VARCHAR" property="animalorigin" />
+    <result column="AnimalDescription" jdbcType="VARCHAR" property="animaldescription" />
+    <result column="AnimalSpecies" jdbcType="VARCHAR" property="animalspecies" />
+    <result column="AnimalSex" jdbcType="VARCHAR" property="animalsex" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    BasicNumber, AnimalWeight, AnimalLengh, AnimalBloodType, AnimalOrigin, AnimalDescription, 
+    AnimalSpecies, AnimalSex
+  </sql>
+  <select id="selectByExample" parameterType="com.crud.bean.AnimalBasicInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from 2020rg_group9_animalbasicinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from 2020rg_group9_animalbasicinfo
+    where BasicNumber = #{basicnumber,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from 2020rg_group9_animalbasicinfo
+    where BasicNumber = #{basicnumber,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.crud.bean.AnimalBasicInfoExample">
+    delete from 2020rg_group9_animalbasicinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.crud.bean.AnimalBasicInfo">
+    insert into 2020rg_group9_animalbasicinfo (BasicNumber, AnimalWeight, AnimalLengh, 
+      AnimalBloodType, AnimalOrigin, AnimalDescription, 
+      AnimalSpecies, AnimalSex)
+    values (#{basicnumber,jdbcType=INTEGER}, #{animalweight,jdbcType=VARCHAR}, #{animallengh,jdbcType=VARCHAR}, 
+      #{animalbloodtype,jdbcType=VARCHAR}, #{animalorigin,jdbcType=VARCHAR}, #{animaldescription,jdbcType=VARCHAR}, 
+      #{animalspecies,jdbcType=VARCHAR}, #{animalsex,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.crud.bean.AnimalBasicInfo">
+    insert into 2020rg_group9_animalbasicinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="basicnumber != null">
+        BasicNumber,
+      </if>
+      <if test="animalweight != null">
+        AnimalWeight,
+      </if>
+      <if test="animallengh != null">
+        AnimalLengh,
+      </if>
+      <if test="animalbloodtype != null">
+        AnimalBloodType,
+      </if>
+      <if test="animalorigin != null">
+        AnimalOrigin,
+      </if>
+      <if test="animaldescription != null">
+        AnimalDescription,
+      </if>
+      <if test="animalspecies != null">
+        AnimalSpecies,
+      </if>
+      <if test="animalsex != null">
+        AnimalSex,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="basicnumber != null">
+        #{basicnumber,jdbcType=INTEGER},
+      </if>
+      <if test="animalweight != null">
+        #{animalweight,jdbcType=VARCHAR},
+      </if>
+      <if test="animallengh != null">
+        #{animallengh,jdbcType=VARCHAR},
+      </if>
+      <if test="animalbloodtype != null">
+        #{animalbloodtype,jdbcType=VARCHAR},
+      </if>
+      <if test="animalorigin != null">
+        #{animalorigin,jdbcType=VARCHAR},
+      </if>
+      <if test="animaldescription != null">
+        #{animaldescription,jdbcType=VARCHAR},
+      </if>
+      <if test="animalspecies != null">
+        #{animalspecies,jdbcType=VARCHAR},
+      </if>
+      <if test="animalsex != null">
+        #{animalsex,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.crud.bean.AnimalBasicInfoExample" resultType="java.lang.Long">
+    select count(*) from 2020rg_group9_animalbasicinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update 2020rg_group9_animalbasicinfo
+    <set>
+      <if test="record.basicnumber != null">
+        BasicNumber = #{record.basicnumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.animalweight != null">
+        AnimalWeight = #{record.animalweight,jdbcType=VARCHAR},
+      </if>
+      <if test="record.animallengh != null">
+        AnimalLengh = #{record.animallengh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.animalbloodtype != null">
+        AnimalBloodType = #{record.animalbloodtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.animalorigin != null">
+        AnimalOrigin = #{record.animalorigin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.animaldescription != null">
+        AnimalDescription = #{record.animaldescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.animalspecies != null">
+        AnimalSpecies = #{record.animalspecies,jdbcType=VARCHAR},
+      </if>
+      <if test="record.animalsex != null">
+        AnimalSex = #{record.animalsex,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update 2020rg_group9_animalbasicinfo
+    set BasicNumber = #{record.basicnumber,jdbcType=INTEGER},
+      AnimalWeight = #{record.animalweight,jdbcType=VARCHAR},
+      AnimalLengh = #{record.animallengh,jdbcType=VARCHAR},
+      AnimalBloodType = #{record.animalbloodtype,jdbcType=VARCHAR},
+      AnimalOrigin = #{record.animalorigin,jdbcType=VARCHAR},
+      AnimalDescription = #{record.animaldescription,jdbcType=VARCHAR},
+      AnimalSpecies = #{record.animalspecies,jdbcType=VARCHAR},
+      AnimalSex = #{record.animalsex,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.crud.bean.AnimalBasicInfo">
+    update 2020rg_group9_animalbasicinfo
+    <set>
+      <if test="animalweight != null">
+        AnimalWeight = #{animalweight,jdbcType=VARCHAR},
+      </if>
+      <if test="animallengh != null">
+        AnimalLengh = #{animallengh,jdbcType=VARCHAR},
+      </if>
+      <if test="animalbloodtype != null">
+        AnimalBloodType = #{animalbloodtype,jdbcType=VARCHAR},
+      </if>
+      <if test="animalorigin != null">
+        AnimalOrigin = #{animalorigin,jdbcType=VARCHAR},
+      </if>
+      <if test="animaldescription != null">
+        AnimalDescription = #{animaldescription,jdbcType=VARCHAR},
+      </if>
+      <if test="animalspecies != null">
+        AnimalSpecies = #{animalspecies,jdbcType=VARCHAR},
+      </if>
+      <if test="animalsex != null">
+        AnimalSex = #{animalsex,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BasicNumber = #{basicnumber,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.crud.bean.AnimalBasicInfo">
+    update 2020rg_group9_animalbasicinfo
+    set AnimalWeight = #{animalweight,jdbcType=VARCHAR},
+      AnimalLengh = #{animallengh,jdbcType=VARCHAR},
+      AnimalBloodType = #{animalbloodtype,jdbcType=VARCHAR},
+      AnimalOrigin = #{animalorigin,jdbcType=VARCHAR},
+      AnimalDescription = #{animaldescription,jdbcType=VARCHAR},
+      AnimalSpecies = #{animalspecies,jdbcType=VARCHAR},
+      AnimalSex = #{animalsex,jdbcType=VARCHAR}
+    where BasicNumber = #{basicnumber,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crud.dao.AuthorizationProtocoRecordMapper">
+  <resultMap id="BaseResultMap" type="com.crud.bean.AuthorizationProtocoRecord">
+    <id column="AuthozAgreeId" jdbcType="INTEGER" property="authozagreeid" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="archiveNumber" jdbcType="INTEGER" property="archivenumber" />
+    <result column="ResponsiblePerson" jdbcType="VARCHAR" property="responsibleperson" />
+    <result column="StoreAddress" jdbcType="VARCHAR" property="storeaddress" />
+    <result column="BusinessDate" jdbcType="TIMESTAMP" property="businessdate" />
+  </resultMap>
+  
+   <resultMap id="AuthzAgreeWithNameInfoMap" type="com.crud.bean.AuthorizationProtocoRecord">
+   <id column="AuthozAgreeId" jdbcType="INTEGER" property="authozagreeid" />
+   <result column="archiveNumber" jdbcType="INTEGER" property="archivenumber" />
+   <result column="ResponsiblePerson" jdbcType="VARCHAR" property="responsibleperson" />
+   <result column="StoreAddress" jdbcType="VARCHAR" property="storeaddress" />
+   <result column="BusinessDate" jdbcType="TIMESTAMP" property="businessdate" />
+   <result column="uid" jdbcType="VARCHAR" property="uid" />
+   <association property = "user"  javaType="com.crud.bean.User">
+   		<result column="name" property="name"/>
+   </association>
+  </resultMap>
+  
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    AuthozAgreeId, uid, archiveNumber, ResponsiblePerson, StoreAddress, BusinessDate
+  </sql>
+  <select id="selectByExample" parameterType="com.crud.bean.AuthorizationProtocoRecordExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from 2020rg_group9_authorizationprotocorecord
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from 2020rg_group9_authorizationprotocorecord
+    where AuthozAgreeId = #{authozagreeid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from 2020rg_group9_authorizationprotocorecord
+    where AuthozAgreeId = #{authozagreeid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.crud.bean.AuthorizationProtocoRecordExample">
+    delete from 2020rg_group9_authorizationprotocorecord
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.crud.bean.AuthorizationProtocoRecord">
+    insert into 2020rg_group9_authorizationprotocorecord (AuthozAgreeId, uid, archiveNumber, 
+      ResponsiblePerson, StoreAddress, BusinessDate
+      )
+    values (#{authozagreeid,jdbcType=INTEGER}, #{uid,jdbcType=VARCHAR}, #{archivenumber,jdbcType=INTEGER}, 
+      #{responsibleperson,jdbcType=VARCHAR}, #{storeaddress,jdbcType=VARCHAR}, #{businessdate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.crud.bean.AuthorizationProtocoRecord">
+    insert into 2020rg_group9_authorizationprotocorecord
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="authozagreeid != null">
+        AuthozAgreeId,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="archivenumber != null">
+        archiveNumber,
+      </if>
+      <if test="responsibleperson != null">
+        ResponsiblePerson,
+      </if>
+      <if test="storeaddress != null">
+        StoreAddress,
+      </if>
+      <if test="businessdate != null">
+        BusinessDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="authozagreeid != null">
+        #{authozagreeid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="archivenumber != null">
+        #{archivenumber,jdbcType=INTEGER},
+      </if>
+      <if test="responsibleperson != null">
+        #{responsibleperson,jdbcType=VARCHAR},
+      </if>
+      <if test="storeaddress != null">
+        #{storeaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="businessdate != null">
+        #{businessdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.crud.bean.AuthorizationProtocoRecordExample" resultType="java.lang.Long">
+    select count(*) from 2020rg_group9_authorizationprotocorecord
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <sql id='AuthzAgreeWithNameInfo'>
+  a.AuthozAgreeId, a.archiveNumber, a.ResponsiblePerson, a.StoreAddress, a.BusinessDate,
+   u.uid, u.name
+  </sql>
+
+  <select id="SelectAuthzProtWithNameByExample" resultMap="AuthzAgreeWithNameInfoMap">
+  	select 
+  	<if test="distinct">
+  		distinct
+  	</if>
+  	<include refid="AuthzAgreeWithNameInfo"/>
+  	from 2020rg_group9_authorizationprotocorecord a
+  	left join 2020rg_group9_user u
+  	on a.uid = u.uid
+  	<if test="_parameter != null">
+     	<include refid="Example_Where_Clause" />
+  	</if>
+  	<if test="orderByClause != null">
+    	order by ${orderByClause}
+ 	 </if>
+  </select>
+  
+    <select id="SelectAuthzProtWithNameByArchiveNumber" parameterType="java.lang.Integer" resultMap="AuthzAgreeWithNameInfoMap">
+  	select 
+  	<include refid="AuthzAgreeWithNameInfo"/>
+  	from 2020rg_group9_authorizationprotocorecord a
+  	left join 2020rg_group9_user u
+  	on a.uid = u.uid
+  	where archiveNumber = #{archivenumber,jdbcType=INTEGER}
+	</select>
+  
+  
+  <update id="updateByExampleSelective" parameterType="map">
+    update 2020rg_group9_authorizationprotocorecord
+    <set>
+      <if test="record.authozagreeid != null">
+        AuthozAgreeId = #{record.authozagreeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null">
+        uid = #{record.uid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.archivenumber != null">
+        archiveNumber = #{record.archivenumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.responsibleperson != null">
+        ResponsiblePerson = #{record.responsibleperson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeaddress != null">
+        StoreAddress = #{record.storeaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessdate != null">
+        BusinessDate = #{record.businessdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update 2020rg_group9_authorizationprotocorecord
+    set AuthozAgreeId = #{record.authozagreeid,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=VARCHAR},
+      archiveNumber = #{record.archivenumber,jdbcType=INTEGER},
+      ResponsiblePerson = #{record.responsibleperson,jdbcType=VARCHAR},
+      StoreAddress = #{record.storeaddress,jdbcType=VARCHAR},
+      BusinessDate = #{record.businessdate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.crud.bean.AuthorizationProtocoRecord">
+    update 2020rg_group9_authorizationprotocorecord
+    <set>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="archivenumber != null">
+        archiveNumber = #{archivenumber,jdbcType=INTEGER},
+      </if>
+      <if test="responsibleperson != null">
+        ResponsiblePerson = #{responsibleperson,jdbcType=VARCHAR},
+      </if>
+      <if test="storeaddress != null">
+        StoreAddress = #{storeaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="businessdate != null">
+        BusinessDate = #{businessdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where AuthozAgreeId = #{authozagreeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.crud.bean.AuthorizationProtocoRecord">
+    update 2020rg_group9_authorizationprotocorecord
+    set uid = #{uid,jdbcType=VARCHAR},
+      archiveNumber = #{archivenumber,jdbcType=INTEGER},
+      ResponsiblePerson = #{responsibleperson,jdbcType=VARCHAR},
+      StoreAddress = #{storeaddress,jdbcType=VARCHAR},
+      BusinessDate = #{businessdate,jdbcType=TIMESTAMP}
+    where AuthozAgreeId = #{authozagreeid,jdbcType=INTEGER}
+  </update>
+</mapper>

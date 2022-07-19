@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crud.dao.ArchiveOperateLogMapper">
+  <resultMap id="BaseResultMap" type="com.crud.bean.ArchiveOperateLog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="Opcode" jdbcType="VARCHAR" property="opcode" />
+    <result column="Operator" jdbcType="VARCHAR" property="operator" />
+    <result column="OperatorDept" jdbcType="VARCHAR" property="operatordept" />
+    <result column="OperateReason" jdbcType="VARCHAR" property="operatereason" />
+    <result column="OperateRemark" jdbcType="VARCHAR" property="operateremark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, Opcode, Operator, OperatorDept, OperateReason, OperateRemark
+  </sql>
+  <select id="selectByExample" parameterType="com.crud.bean.ArchiveOperateLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from 2020rg_group9_archiveoperatelog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from 2020rg_group9_archiveoperatelog
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from 2020rg_group9_archiveoperatelog
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.crud.bean.ArchiveOperateLogExample">
+    delete from 2020rg_group9_archiveoperatelog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.crud.bean.ArchiveOperateLog">
+    insert into 2020rg_group9_archiveoperatelog (id, Opcode, Operator, 
+      OperatorDept, OperateReason, OperateRemark
+      )
+    values (#{id,jdbcType=INTEGER}, #{opcode,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, 
+      #{operatordept,jdbcType=VARCHAR}, #{operatereason,jdbcType=VARCHAR}, #{operateremark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.crud.bean.ArchiveOperateLog">
+    insert into 2020rg_group9_archiveoperatelog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="opcode != null">
+        Opcode,
+      </if>
+      <if test="operator != null">
+        Operator,
+      </if>
+      <if test="operatordept != null">
+        OperatorDept,
+      </if>
+      <if test="operatereason != null">
+        OperateReason,
+      </if>
+      <if test="operateremark != null">
+        OperateRemark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="opcode != null">
+        #{opcode,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operatordept != null">
+        #{operatordept,jdbcType=VARCHAR},
+      </if>
+      <if test="operatereason != null">
+        #{operatereason,jdbcType=VARCHAR},
+      </if>
+      <if test="operateremark != null">
+        #{operateremark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.crud.bean.ArchiveOperateLogExample" resultType="java.lang.Long">
+    select count(*) from 2020rg_group9_archiveoperatelog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update 2020rg_group9_archiveoperatelog
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.opcode != null">
+        Opcode = #{record.opcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operator != null">
+        Operator = #{record.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatordept != null">
+        OperatorDept = #{record.operatordept,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatereason != null">
+        OperateReason = #{record.operatereason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateremark != null">
+        OperateRemark = #{record.operateremark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update 2020rg_group9_archiveoperatelog
+    set id = #{record.id,jdbcType=INTEGER},
+      Opcode = #{record.opcode,jdbcType=VARCHAR},
+      Operator = #{record.operator,jdbcType=VARCHAR},
+      OperatorDept = #{record.operatordept,jdbcType=VARCHAR},
+      OperateReason = #{record.operatereason,jdbcType=VARCHAR},
+      OperateRemark = #{record.operateremark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.crud.bean.ArchiveOperateLog">
+    update 2020rg_group9_archiveoperatelog
+    <set>
+      <if test="opcode != null">
+        Opcode = #{opcode,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        Operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operatordept != null">
+        OperatorDept = #{operatordept,jdbcType=VARCHAR},
+      </if>
+      <if test="operatereason != null">
+        OperateReason = #{operatereason,jdbcType=VARCHAR},
+      </if>
+      <if test="operateremark != null">
+        OperateRemark = #{operateremark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.crud.bean.ArchiveOperateLog">
+    update 2020rg_group9_archiveoperatelog
+    set Opcode = #{opcode,jdbcType=VARCHAR},
+      Operator = #{operator,jdbcType=VARCHAR},
+      OperatorDept = #{operatordept,jdbcType=VARCHAR},
+      OperateReason = #{operatereason,jdbcType=VARCHAR},
+      OperateRemark = #{operateremark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
